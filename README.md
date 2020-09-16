@@ -7,3 +7,4 @@ CONAN_SYSREQUIRES_MODE=verify
 
 ## Ghosts
 This will probably become relevant https://en.wikipedia.org/wiki/Ghosts_(Pac-Man)
+This as well https://youtu.be/ataGotQ7ir8
