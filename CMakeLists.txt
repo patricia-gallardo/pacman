@@ -10,4 +10,5 @@ if (NOT EXISTS "${CMAKE_BINARY_DIR}/conan.cmake")
             "${CMAKE_BINARY_DIR}/conan.cmake")
 endif ()
 
+set(CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR}/src)
 add_subdirectory(src)

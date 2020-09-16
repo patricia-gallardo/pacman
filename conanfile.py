@@ -3,7 +3,7 @@ from conans import ConanFile, CMake
 class ConanDependencies(ConanFile):
 
     settings = "os", "compiler", "build_type", "arch"
-    generators = "cmake"
+    generators = "cmake", "cmake_find_package"
 
     def requirements(self):
         self.requires("sdl2/2.0.12@bincrafters/stable")
