@@ -3,6 +3,14 @@
 
 #include "GameWindow.h"
 
+struct InputState {
+  bool close = false;
+  bool up = false;
+  bool down = false;
+  bool left = false;
+  bool right = false;
+};
+
 class Game {
 public:
   Game();
@@ -10,7 +18,9 @@ public:
 
 private:
   GameWindow window;
-  bool processEvents() const;
+  static void processEvents(InputState & inputState) ;
+  static void keyToggle(const SDL_Event & event, InputState & inputState, bool on);
+  static void printInputState(const InputState & inputState) ;
 };
 
 #endif //PACMAN_GAME_H
