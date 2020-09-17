@@ -1,4 +1,5 @@
 ![CI-Release](https://github.com/patricia-gallardo/pacman/workflows/CI-Release/badge.svg)
+![CI-Debug](https://github.com/patricia-gallardo/pacman/workflows/CI-Debug/badge.svg)
 ## Conan
 
 Set this environment variable and Conan will tell you which packages you need to
