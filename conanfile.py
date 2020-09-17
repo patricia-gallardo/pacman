@@ -6,8 +6,8 @@ class ConanDependencies(ConanFile):
     generators = "cmake", "cmake_find_package"
 
     def requirements(self):
-        self.requires("sdl2/2.0.10@bincrafters/stable")
-        self.requires("sdl2_image/2.0.5@bincrafters/stable")
+        self.requires("sdl2/2.0.9@bincrafters/stable")
+        self.requires("sdl2_image/2.0.4@bincrafters/stable")
 
     def imports(self):
         self.copy("*.dll", dst="bin", src="bin")

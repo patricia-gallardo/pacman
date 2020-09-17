@@ -9,4 +9,4 @@ include_directories(${sdl2_INCLUDE_DIRS} ${sdl2_image_INCLUDE_DIRS})
 
 file(GLOB_RECURSE sources CONFIGURE_DEPENDS "*.cpp")
 add_executable(${PROJECT_NAME} ${sources})
-target_link_libraries(${PROJECT_NAME} ${sdl2_LIBRARIES} ${sdl2_image_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} sdl2::sdl2 sdl2_image::sdl2_image)
