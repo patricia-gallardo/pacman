@@ -1,10 +1,9 @@
 #ifndef PACMAN_GAMEWINDOW_H
 #define PACMAN_GAMEWINDOW_H
 
-#include "Game.h"
 #include <memory>
 
-#include <SDL.h>
+#include <SDL2/SDL.h>
 
 struct SDLWindowDeleter {
   void operator()(SDL_Window * window) {
@@ -12,12 +11,21 @@ struct SDLWindowDeleter {
   }
 };
 
+struct SDLRendererDeleter {
+  void operator()(SDL_Renderer * renderer) {
+    SDL_DestroyRenderer(renderer);
+  }
+};
+
 class GameWindow {
 public:
-  explicit GameWindow(const Game & game);
+  explicit GameWindow(int width, int height);
+  void update();
 
 private:
   std::unique_ptr<SDL_Window, SDLWindowDeleter> window;
+  std::unique_ptr<SDL_Renderer, SDLRendererDeleter> renderer;
+  void exitFailure(const char * message) const;
 };
 
 #endif //PACMAN_GAMEWINDOW_H

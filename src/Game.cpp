@@ -1,6 +1,6 @@
 #include "Game.h"
 
-#include <SDL.h>
+#include <SDL2/SDL.h>
 
 const int ROWS = 31;
 const int COLUMNS = 28;
@@ -11,6 +11,9 @@ const int COLUMNS = 28;
 // 2 - nothing
 // 3 - door
 // 4 - superpower
+
+// 16 pixels per square
+// Maze in pixels - width: 448 - height - 496
 
 static const int board[ROWS][COLUMNS] = {
 // 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7
@@ -47,20 +50,26 @@ static const int board[ROWS][COLUMNS] = {
   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}, // 30
 };
 
-Game::Game() {
-  SDL_Init(SDL_INIT_EVERYTHING);
+Game::Game()
+  : window(448, 496) {
 }
 
 void Game::run() {
   bool close = false;
   while (!close) {
-    SDL_Event event;
-    while (SDL_PollEvent(&event)) {
-      switch (event.type) {
-        case SDL_QUIT:
-          close = true;
-          break;
-      }
+    close = processEvents();
+    window.update();
+  }
+}
+bool Game::processEvents() const {
+  bool close = false;
+  SDL_Event event;
+  while (SDL_PollEvent(&event)) {
+    switch (event.type) {
+      case SDL_QUIT:
+        close = true;
+        break;
     }
   }
+  return close;
 }
