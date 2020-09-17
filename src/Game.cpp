@@ -51,7 +51,7 @@ static const int board[ROWS][COLUMNS] = {
 };
 
 Game::Game()
-  : window(448, 496) {
+  : window(448*2, 496*2) {
 }
 
 void Game::run() {
