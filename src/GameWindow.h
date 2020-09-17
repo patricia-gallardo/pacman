@@ -40,6 +40,13 @@ private:
   std::unique_ptr<SDL_Surface, SDL_Surface_Deleter> window_surface;
   void exitFailure(std::string message) const;
   void exitImgFailure(std::string message) const;
+  void createWindow(int width, int height);
+  void createRenderer();
+  void setDrawColor() const;
+  void initSDL() const;
+  void initSDLImage() const;
+  void createWindowSurface();
+  void renderMaze() const;
 };
 
 #endif //PACMAN_GAMEWINDOW_H
