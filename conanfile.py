@@ -4,6 +4,7 @@ class ConanDependencies(ConanFile):
 
     settings = "os", "compiler", "build_type", "arch"
     generators = "cmake", "cmake_find_package"
+    default_options = {"sdl2_image:jpg": "libjpeg"}
 
     def requirements(self):
         self.requires("sdl2/2.0.9@bincrafters/stable")
