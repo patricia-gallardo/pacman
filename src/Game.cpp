@@ -1,7 +1,8 @@
 #include "Game.h"
 
 #include <SDL2/SDL.h>
-#include <iostream>
+
+#include <chrono>
 
 Game::Game()
   : window(448*2, 496*2) {
@@ -9,25 +10,14 @@ Game::Game()
 
 void Game::run() {
   InputState inputState;
+  auto current_time = std::chrono::system_clock::now();
   while (!inputState.close) {
     processEvents(inputState);
-    printInputState(inputState);
-    pacMan.update(inputState, board);
+    auto time_delta = std::chrono::system_clock::now() - current_time;
+    pacMan.update(std::chrono::duration_cast<std::chrono::nanoseconds>(time_delta), inputState, board);
+    current_time += time_delta;
     window.update(pacMan);
   }
-}
-
-void Game::printInputState(const InputState & inputState) {
-  if (inputState.close)
-    std::cout << "close\n";
-  if (inputState.up)
-    std::cout << "up\n";
-  if (inputState.down)
-    std::cout << "down\n";
-  if (inputState.left)
-    std::cout << "left\n";
-  if (inputState.right)
-    std::cout << "right\n";
 }
 
 void Game::processEvents(InputState & inputState) {

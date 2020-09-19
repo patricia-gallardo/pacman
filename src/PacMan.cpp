@@ -20,10 +20,10 @@ SDL_Point PacMan::currentPosition() const {
   return pos;
 }
 
-void PacMan::update(InputState state, const Board & board) {
+void PacMan::update(std::chrono::nanoseconds time_delta, InputState state, const Board & board) {
   setDirection(state);
-  updateAnimationPosition();
-  updateMazePosition(board);
+  updateAnimationPosition(time_delta);
+  updateMazePosition(time_delta, board);
 }
 
 void PacMan::setDirection(const InputState & state) {
@@ -37,11 +37,11 @@ void PacMan::setDirection(const InputState & state) {
     direction = Direction::DOWN;
 }
 
-void PacMan::updateAnimationPosition() {
+void PacMan::updateAnimationPosition(std::chrono::nanoseconds time_delta) {
   animation_position = (animation_position + 1) % 4;
 }
 
-void PacMan::updateMazePosition(const Board & board) {
+void PacMan::updateMazePosition(std::chrono::nanoseconds time_delta, const Board & board) {
   SDL_Point updated_position = pos;
   switch (direction) {
     case Direction::LEFT:  updated_position.x -= 1; break;
