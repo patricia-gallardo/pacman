@@ -10,10 +10,28 @@ GameWindow::GameWindow(int width, int height) {
   auto sdl_renderer = createRenderer(sdl_window);
   createWindowSurface(sdl_window);
   setDrawColor(sdl_renderer);
-  renderMaze(sdl_renderer);
+  maze_texture = loadTexture(sdl_renderer, "../../../assets/maze.png");
+  sprite_texture = loadTexture(sdl_renderer, "../../../assets/sprites32.png");
 }
 
-void GameWindow::update() {}
+void GameWindow::update() {
+  SDL_RenderClear(renderer.get());
+
+  renderMaze();
+  renderPacMan();
+
+  SDL_RenderPresent(renderer.get());
+}
+
+void GameWindow::renderMaze() const {
+  if (SDL_RenderCopy(renderer.get(), maze_texture.get(), nullptr, nullptr) < 0)
+    exitFailure("Failed to copy texture to renderer");
+}
+
+void GameWindow::renderPacMan() const {
+  if (SDL_RenderCopy(renderer.get(), sprite_texture.get(), nullptr, nullptr) < 0)
+    exitFailure("Failed to copy texture to renderer");
+}
 
 void GameWindow::initSDL() {
   if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
@@ -64,21 +82,15 @@ void GameWindow::setDrawColor(SDL_Renderer * sdl_renderer) {
     exitFailure("Failed to set renderer color");
 }
 
-void GameWindow::renderMaze(SDL_Renderer * sdl_renderer) {
-  SDL_RenderClear(sdl_renderer);
-
-  auto surface = std::unique_ptr<SDL_Surface, SDL_Surface_Deleter>(IMG_Load("../../../assets/maze.png"));
+std::unique_ptr<SDL_Texture, SDL_Texture_Deleter> GameWindow::loadTexture(SDL_Renderer * sdl_renderer, const std::string& path) {
+  auto surface = std::unique_ptr<SDL_Surface, SDL_Surface_Deleter>(IMG_Load(path.c_str()));
   if (!surface)
     exitImgFailure("Failed to load image");
 
   auto texture = std::unique_ptr<SDL_Texture, SDL_Texture_Deleter>(SDL_CreateTextureFromSurface(sdl_renderer, surface.get()));
   if (!texture)
     exitFailure("Failed to create texture from surface");
-
-  if (SDL_RenderCopy(sdl_renderer, texture.get(), nullptr, nullptr) < 0)
-    exitFailure("Failed to copy texture to renderer");
-
-  SDL_RenderPresent(sdl_renderer);
+  return texture;
 }
 
 void GameWindow::exitFailure(const std::string& message) {
