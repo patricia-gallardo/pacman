@@ -67,7 +67,7 @@ void GameWindow::setDrawColor(SDL_Renderer * sdl_renderer) {
 void GameWindow::renderMaze(SDL_Renderer * sdl_renderer) {
   SDL_RenderClear(sdl_renderer);
 
-  auto surface = std::unique_ptr<SDL_Surface, SDL_Surface_Deleter>(IMG_Load("../../../maze.png"));
+  auto surface = std::unique_ptr<SDL_Surface, SDL_Surface_Deleter>(IMG_Load("../../../assets/maze.png"));
   if (!surface)
     exitImgFailure("Failed to load image");
 
