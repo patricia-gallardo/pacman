@@ -2,6 +2,7 @@
 #define PACMAN_GAME_H
 
 #include "GameWindow.h"
+#include "PacMan.h"
 
 struct InputState {
   bool close = false;
@@ -18,6 +19,7 @@ public:
 
 private:
   GameWindow window;
+  PacMan pacMan;
   static void processEvents(InputState & inputState) ;
   static void keyToggle(const SDL_Event & event, InputState & inputState, bool on);
   static void printInputState(const InputState & inputState) ;

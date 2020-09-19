@@ -1,4 +1,5 @@
 #include "GameWindow.h"
+#include "PacMan.h"
 
 #include <SDL2/SDL_image.h>
 #include <iostream>
@@ -14,11 +15,11 @@ GameWindow::GameWindow(int width, int height) {
   sprite_texture = loadTexture(sdl_renderer, "../../../assets/sprites32.png");
 }
 
-void GameWindow::update() {
+void GameWindow::update(const PacMan &  pacMan) {
   SDL_RenderClear(renderer.get());
 
   renderMaze();
-  renderPacMan();
+  renderPacMan(pacMan);
 
   SDL_RenderPresent(renderer.get());
 }
@@ -28,8 +29,11 @@ void GameWindow::renderMaze() const {
     exitFailure("Failed to copy texture to renderer");
 }
 
-void GameWindow::renderPacMan() const {
-  if (SDL_RenderCopy(renderer.get(), sprite_texture.get(), nullptr, nullptr) < 0)
+void GameWindow::renderPacMan(const PacMan & pac_man) const {
+  SDL_Rect sprite_rect = pac_man.currentSprite();
+  SDL_Point maze_position = pac_man.currentPosition();
+  SDL_Rect maze_rect = { 32*maze_position.x, 32*maze_position.y, 32, 32};
+  if (SDL_RenderCopy(renderer.get(), sprite_texture.get(), &sprite_rect, &maze_rect) < 0)
     exitFailure("Failed to copy texture to renderer");
 }
 

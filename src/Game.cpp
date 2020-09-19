@@ -60,7 +60,7 @@ void Game::run() {
   while (!inputState.close) {
     processEvents(inputState);
     printInputState(inputState);
-    window.update();
+    window.update(pacMan);
   }
 }
 

@@ -3,6 +3,7 @@
 
 #include <memory>
 
+#include "PacMan.h"
 #include <SDL2/SDL.h>
 
 struct SDL_Window_Deleter {
@@ -29,10 +30,12 @@ struct SDL_Texture_Deleter {
   }
 };
 
+class PacMan;
+
 class GameWindow {
 public:
   explicit GameWindow(int width, int height);
-  void update();
+  void update(const PacMan & pacMan);
 
 private:
   std::unique_ptr<SDL_Window, SDL_Window_Deleter> window;
@@ -50,7 +53,7 @@ private:
   static void exitImgFailure(const std::string& message);
   static std::unique_ptr<SDL_Texture, SDL_Texture_Deleter> loadTexture(SDL_Renderer * sdl_renderer, const std::string& path);
   void renderMaze() const;
-  void renderPacMan() const;
+  void renderPacMan(const PacMan & pac_man) const;
 };
 
 #endif //PACMAN_GAMEWINDOW_H
