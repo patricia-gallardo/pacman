@@ -25,15 +25,18 @@ void GameWindow::update(const PacMan &  pacMan) {
 }
 
 void GameWindow::renderMaze() const {
-  if (SDL_RenderCopy(renderer.get(), maze_texture.get(), nullptr, nullptr) < 0)
-    exitFailure("Failed to copy texture to renderer");
+  renderTexture(maze_texture.get(), nullptr, nullptr);
 }
 
 void GameWindow::renderPacMan(const PacMan & pac_man) const {
   SDL_Rect sprite_rect = pac_man.currentSprite();
   SDL_Point maze_position = pac_man.currentPosition();
   SDL_Rect maze_rect = { 32*maze_position.x, 32*maze_position.y, 32, 32};
-  if (SDL_RenderCopy(renderer.get(), sprite_texture.get(), &sprite_rect, &maze_rect) < 0)
+  renderTexture(sprite_texture.get(), &sprite_rect, &maze_rect);
+}
+
+void GameWindow::renderTexture(SDL_Texture * texture, SDL_Rect * texture_rect, SDL_Rect * target_rect) const {
+  if (SDL_RenderCopy(renderer.get(), texture, texture_rect, target_rect) < 0)
     exitFailure("Failed to copy texture to renderer");
 }
 
