@@ -8,13 +8,18 @@ Game::Game()
   : window(448*2, 496*2) {
 }
 
+auto Game::now() {
+  return std::chrono::system_clock::now();
+}
+
 void Game::run() {
   InputState inputState;
-  auto current_time = std::chrono::system_clock::now();
+  auto current_time = now();
   while (!inputState.close) {
     processEvents(inputState);
-    auto time_delta = std::chrono::system_clock::now() - current_time;
-    pacMan.update(std::chrono::duration_cast<std::chrono::nanoseconds>(time_delta), inputState, board);
+    auto time_delta = now() - current_time;
+    auto nano_delta = std::chrono::duration_cast<std::chrono::nanoseconds>(time_delta);
+    pacMan.update(nano_delta, inputState, board);
     current_time += time_delta;
     window.update(pacMan);
   }

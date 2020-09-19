@@ -18,6 +18,7 @@ private:
 
   static void processEvents(InputState & inputState) ;
   static void keyToggle(const SDL_Event & event, InputState & inputState, bool on);
+  [[nodiscard]] static auto now() ;
 };
 
 #endif //PACMAN_GAME_H
