@@ -20,10 +20,10 @@ SDL_Point PacMan::currentPosition() const {
   return pos;
 }
 
-void PacMan::update(InputState state) {
+void PacMan::update(InputState state, const Board & board) {
   setDirection(state);
   updateAnimationPosition();
-  updateMazePosition();
+  updateMazePosition(board);
 }
 
 void PacMan::setDirection(const InputState & state) {
@@ -38,9 +38,18 @@ void PacMan::setDirection(const InputState & state) {
 }
 
 void PacMan::updateAnimationPosition() {
-  //animation_position = (animation_position + 1) % 4;
+  animation_position = (animation_position + 1) % 4;
 }
 
-void PacMan::updateMazePosition() {
+void PacMan::updateMazePosition(const Board & board) {
+  SDL_Point updated_position = pos;
+  switch (direction) {
+    case Direction::LEFT:  updated_position.x -= 1; break;
+    case Direction::RIGHT: updated_position.x += 1; break;
+    case Direction::UP:    updated_position.y -= 1; break;
+    case Direction::DOWN:  updated_position.y += 1; break;
+  }
 
+  if (board.isWalkable(updated_position))
+    pos = updated_position;
 }

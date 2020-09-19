@@ -1,6 +1,7 @@
 #ifndef PACMAN_PACMAN_H
 #define PACMAN_PACMAN_H
 
+#include "Board.h"
 #include "InputState.h"
 
 #include <SDL2/SDL_rect.h>
@@ -11,7 +12,7 @@ public:
   [[nodiscard]] SDL_Rect currentSprite() const;
   [[nodiscard]] SDL_Point currentPosition() const;
 
-  void update(InputState state);
+  void update(InputState state, const Board & board);
 
 private:
 
@@ -41,7 +42,7 @@ private:
 
   void setDirection(const InputState & state);
   void updateAnimationPosition();
-  void updateMazePosition();
+  void updateMazePosition(const Board & board);
 };
 
 #endif //PACMAN_PACMAN_H
