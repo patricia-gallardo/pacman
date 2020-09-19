@@ -2,15 +2,8 @@
 #define PACMAN_GAME_H
 
 #include "GameWindow.h"
+#include "InputState.h"
 #include "PacMan.h"
-
-struct InputState {
-  bool close = false;
-  bool up = false;
-  bool down = false;
-  bool left = false;
-  bool right = false;
-};
 
 class Game {
 public:
