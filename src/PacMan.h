@@ -28,7 +28,7 @@ private:
   SDL_Point pos = {14, 23};
   const SDL_Rect right_wide   = {0*32, 0, 32, 32};
   const SDL_Rect right_narrow = {1*32, 0, 32, 32};
-  const SDL_Rect closed       = {2*23, 0, 32, 32};
+  const SDL_Rect closed       = {2*32, 0, 32, 32};
   const SDL_Rect left_narrow  = {3*32, 0, 32, 32};
   const SDL_Rect left_wide    = {4*32, 0, 32, 32};
   const SDL_Rect up_wide      = {5*32, 0, 32, 32};
@@ -40,6 +40,7 @@ private:
   const SDL_Rect up_animation[4];
   const SDL_Rect down_animation[4];
   uint8_t animation_position = 0;
+  float_t animation_position_delta = 0.0;
 
   void setDirection(const InputState & state);
   void updateAnimationPosition(std::chrono::milliseconds time_delta);

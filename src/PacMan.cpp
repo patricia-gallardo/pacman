@@ -38,7 +38,9 @@ void PacMan::setDirection(const InputState & state) {
 }
 
 void PacMan::updateAnimationPosition(std::chrono::milliseconds time_delta) {
-  animation_position = (animation_position + 1) % 4;
+  animation_position_delta += (time_delta.count() / 100.0);
+  animation_position = int(animation_position + animation_position_delta) % 4;
+  animation_position_delta = (animation_position_delta < 1) ? animation_position_delta : (animation_position_delta - 1);
 }
 
 void PacMan::updateMazePosition(std::chrono::milliseconds time_delta, const Board & board) {
