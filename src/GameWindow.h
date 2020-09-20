@@ -54,7 +54,7 @@ private:
   static std::unique_ptr<SDL_Texture, SDL_Texture_Deleter> loadTexture(SDL_Renderer * sdl_renderer, const std::string& path);
   void renderMaze() const;
   void renderPacMan(const PacMan & pac_man) const;
-  static SDL_Rect targetRect(const SDL_Point & position, int pixel_increase);
+  static SDL_Rect targetRect(const Position & position, int pixel_increase);
   void renderTexture(SDL_Texture * texture, SDL_Rect * texture_rect, SDL_Rect * target_rect) const;
 };
 

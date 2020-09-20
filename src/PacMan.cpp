@@ -17,7 +17,7 @@ SDL_Rect PacMan::currentSprite() const {
   }
 }
 
-SDL_Point PacMan::currentPosition() const {
+Position PacMan::currentPosition() const {
   return pos;
 }
 
@@ -45,21 +45,25 @@ void PacMan::updateAnimationPosition(std::chrono::milliseconds time_delta) {
 }
 
 void PacMan::updateMazePosition(std::chrono::milliseconds time_delta, const Board & board) {
-  position_delta += (time_delta.count() / 100.0);
+  float_t position_delta = (time_delta.count() / 64.0);
 
-  if (position_delta > 1) {
-    SDL_Point updated_position = pos;
+  if (board.isWalkable(pos, position_delta, direction)) {
     switch (direction) {
-      case Direction::NONE:  break;
-      case Direction::LEFT:  updated_position.x -= 1; break;
-      case Direction::RIGHT: updated_position.x += 1; break;
-      case Direction::UP:    updated_position.y -= 1; break;
-      case Direction::DOWN:  updated_position.y += 1; break;
+      case Direction::NONE:
+        break;
+      case Direction::LEFT:
+        pos.x -= position_delta;
+        break;
+      case Direction::RIGHT:
+        pos.x += position_delta;
+        break;
+      case Direction::UP:
+        pos.y -= position_delta;
+        break;
+      case Direction::DOWN:
+        pos.y += position_delta;
+        break;
     }
-
-    if (board.isWalkable(updated_position))
-      pos = updated_position;
-
-    position_delta -= 1;
   }
+
 }

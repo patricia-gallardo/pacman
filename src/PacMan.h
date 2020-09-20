@@ -2,7 +2,9 @@
 #define PACMAN_PACMAN_H
 
 #include "Board.h"
+#include "Direction.h"
 #include "InputState.h"
+#include "Position.h"
 
 #include <SDL2/SDL_rect.h>
 #include <chrono>
@@ -11,22 +13,14 @@ class PacMan {
 public:
   PacMan();
   [[nodiscard]] SDL_Rect currentSprite() const;
-  [[nodiscard]] SDL_Point currentPosition() const;
+  [[nodiscard]] Position currentPosition() const;
 
   void update(std::chrono::milliseconds time_delta, InputState state, const Board & board);
 
 private:
 
-  enum class Direction {
-    NONE,
-    LEFT,
-    RIGHT,
-    UP,
-    DOWN
-  };
-
   Direction direction = Direction::NONE;
-  SDL_Point pos = {14, 23};
+  Position pos = {14, 23};
   const SDL_Rect right_wide   = {0*32, 0, 32, 32};
   const SDL_Rect right_narrow = {1*32, 0, 32, 32};
   const SDL_Rect closed       = {2*32, 0, 32, 32};
@@ -42,7 +36,6 @@ private:
   const SDL_Rect down_animation[4];
   uint8_t animation_position = 0;
   float_t animation_position_delta = 0.0;
-  float_t position_delta = 0.0;
 
   void setDirection(const InputState & state);
   void updateAnimationPosition(std::chrono::milliseconds time_delta);

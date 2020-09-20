@@ -1,6 +1,8 @@
 #ifndef PACMAN_BOARD_H
 #define PACMAN_BOARD_H
 
+#include "Direction.h"
+#include "Position.h"
 #include <SDL2/SDL_rect.h>
 #include <cstdint>
 
@@ -11,7 +13,7 @@ class Board {
 public:
   Board();
 
-  [[nodiscard]] bool isWalkable(SDL_Point point) const;
+  [[nodiscard]] bool isWalkable(Position point, float_t d, Direction direction) const;
 
 private:
   uint8_t board_state[ROWS][COLUMNS];

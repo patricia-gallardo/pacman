@@ -55,7 +55,18 @@ void Board::resetBoardState() {
       board_state[row][column] = board[row][column];
 }
 
-bool Board::isWalkable(SDL_Point point) const {
-  uint8_t square = board_state[point.y][point.x];
-  return square != 0;
+bool Board::isWalkable(Position point, float_t position_delta, Direction direction) const {
+
+  switch (direction) {
+    case Direction::NONE:
+      return true;
+    case Direction::LEFT:
+      return board_state[int(point.y)][int(point.x - position_delta)] != 0;
+    case Direction::RIGHT:
+      return board_state[int(point.y)][int(point.x) + 1] != 0;
+    case Direction::UP:
+      return board_state[int(point.y - position_delta)][int(point.x)] != 0;
+    case Direction::DOWN:
+      return board_state[int(point.y) + 1][int(point.x)] != 0;
+  }
 }

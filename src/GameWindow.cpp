@@ -29,18 +29,18 @@ void GameWindow::renderMaze() const {
 }
 
 void GameWindow::renderPacMan(const PacMan & pac_man) const {
-  SDL_Point maze_position = pac_man.currentPosition();
+  Position maze_position = pac_man.currentPosition();
   SDL_Rect maze_rect = targetRect(maze_position, 16);
   SDL_Rect sprite_rect = pac_man.currentSprite();
   renderTexture(sprite_texture.get(), &sprite_rect, &maze_rect);
 }
 
-SDL_Rect GameWindow::targetRect(const SDL_Point & position, int pixel_increase) {
+SDL_Rect GameWindow::targetRect(const Position & position, int pixel_increase) {
   int pixels = 32;
   int displacement = pixel_increase / 2;
   return {
-    (pixels * position.x) - displacement,
-    (pixels * position.y) - displacement,
+    int(pixels * position.x) - displacement,
+    int(pixels * position.y) - displacement,
     (pixels + pixel_increase),
     (pixels + pixel_increase)
   };
