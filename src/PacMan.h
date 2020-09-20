@@ -42,6 +42,7 @@ private:
   const SDL_Rect down_animation[4];
   uint8_t animation_position = 0;
   float_t animation_position_delta = 0.0;
+  float_t position_delta = 0.0;
 
   void setDirection(const InputState & state);
   void updateAnimationPosition(std::chrono::milliseconds time_delta);

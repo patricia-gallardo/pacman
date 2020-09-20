@@ -45,15 +45,21 @@ void PacMan::updateAnimationPosition(std::chrono::milliseconds time_delta) {
 }
 
 void PacMan::updateMazePosition(std::chrono::milliseconds time_delta, const Board & board) {
-  SDL_Point updated_position = pos;
-  switch (direction) {
-    case Direction::NONE:  break;
-    case Direction::LEFT:  updated_position.x -= 1; break;
-    case Direction::RIGHT: updated_position.x += 1; break;
-    case Direction::UP:    updated_position.y -= 1; break;
-    case Direction::DOWN:  updated_position.y += 1; break;
-  }
+  position_delta += (time_delta.count() / 100.0);
 
-  if (board.isWalkable(updated_position))
-    pos = updated_position;
+  if (position_delta > 1) {
+    SDL_Point updated_position = pos;
+    switch (direction) {
+      case Direction::NONE:  break;
+      case Direction::LEFT:  updated_position.x -= 1; break;
+      case Direction::RIGHT: updated_position.x += 1; break;
+      case Direction::UP:    updated_position.y -= 1; break;
+      case Direction::DOWN:  updated_position.y += 1; break;
+    }
+
+    if (board.isWalkable(updated_position))
+      pos = updated_position;
+
+    position_delta -= 1;
+  }
 }
