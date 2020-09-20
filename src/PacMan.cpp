@@ -53,14 +53,18 @@ void PacMan::updateMazePosition(std::chrono::milliseconds time_delta, const Boar
         break;
       case Direction::LEFT:
         pos.x -= position_delta;
+        pos.y = floor(pos.y);
         break;
       case Direction::RIGHT:
         pos.x += position_delta;
+        pos.y = floor(pos.y);
         break;
       case Direction::UP:
+        pos.x = floor(pos.x);
         pos.y -= position_delta;
         break;
       case Direction::DOWN:
+        pos.x = floor(pos.x);
         pos.y += position_delta;
         break;
     }
