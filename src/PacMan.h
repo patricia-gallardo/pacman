@@ -13,7 +13,7 @@ public:
   [[nodiscard]] SDL_Rect currentSprite() const;
   [[nodiscard]] SDL_Point currentPosition() const;
 
-  void update(std::chrono::nanoseconds time_delta, InputState state, const Board & board);
+  void update(std::chrono::milliseconds time_delta, InputState state, const Board & board);
 
 private:
 
@@ -42,8 +42,8 @@ private:
   uint8_t animation_position = 0;
 
   void setDirection(const InputState & state);
-  void updateAnimationPosition(std::chrono::nanoseconds time_delta);
-  void updateMazePosition(std::chrono::nanoseconds time_delta, const Board & board);
+  void updateAnimationPosition(std::chrono::milliseconds time_delta);
+  void updateMazePosition(std::chrono::milliseconds time_delta, const Board & board);
 };
 
 #endif //PACMAN_PACMAN_H

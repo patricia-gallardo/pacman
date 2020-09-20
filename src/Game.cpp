@@ -18,8 +18,8 @@ void Game::run() {
   while (!inputState.close) {
     processEvents(inputState);
     auto time_delta = now() - current_time;
-    auto nano_delta = std::chrono::duration_cast<std::chrono::nanoseconds>(time_delta);
-    pacMan.update(nano_delta, inputState, board);
+    auto milli_delta = std::chrono::duration_cast<std::chrono::milliseconds>(time_delta);
+    pacMan.update(milli_delta, inputState, board);
     current_time += time_delta;
     window.update(pacMan);
   }
