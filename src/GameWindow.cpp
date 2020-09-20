@@ -3,6 +3,7 @@
 
 #include <SDL2/SDL_image.h>
 #include <iostream>
+#include <vector>
 
 GameWindow::GameWindow(int width, int height) {
   initSDL();
@@ -15,10 +16,11 @@ GameWindow::GameWindow(int width, int height) {
   sprite_texture = loadTexture(sdl_renderer, "../../../assets/sprites32.png");
 }
 
-void GameWindow::update(const PacMan &  pacMan) {
+void GameWindow::update(const PacMan & pacMan, Board board) {
   SDL_RenderClear(renderer.get());
 
   renderMaze();
+  renderBoard(board);
   renderPacMan(pacMan);
 
   SDL_RenderPresent(renderer.get());
@@ -26,6 +28,29 @@ void GameWindow::update(const PacMan &  pacMan) {
 
 void GameWindow::renderMaze() const {
   renderTexture(maze_texture.get(), nullptr, nullptr);
+}
+
+void GameWindow::renderBoard(Board board) {
+  renderPellets(board);
+  renderSuperPellets(board);
+}
+
+void GameWindow::renderSuperPellets(Board & board) const {
+  SDL_Rect sprite_rect = board.superPelletSprite();
+  std::vector<SDL_Point> superPelletPositions = board.superPelletPositions();
+  for (const auto & pos : superPelletPositions) {
+    SDL_Rect maze_rect = targetRect({ float_t(pos.x), float_t(pos.y) }, 16);
+    renderTexture(sprite_texture.get(), &sprite_rect, &maze_rect);
+  }
+}
+
+void GameWindow::renderPellets(Board & board) const {
+  SDL_Rect sprite_rect = board.pelletSprite();
+  std::vector<SDL_Point> pelletPositions = board.pelletPositions();
+  for (const auto & pos : pelletPositions) {
+    SDL_Rect maze_rect = targetRect({ float_t(pos.x), float_t(pos.y) }, 16);
+    renderTexture(sprite_texture.get(), &sprite_rect, &maze_rect);
+  }
 }
 
 void GameWindow::renderPacMan(const PacMan & pac_man) const {

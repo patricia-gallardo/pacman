@@ -70,3 +70,34 @@ bool Board::isWalkable(Position point, float_t position_delta, Direction directi
       return board_state[int(point.y) + 1][int(point.x)] != 0;
   }
 }
+
+SDL_Rect Board::pelletSprite() {
+  return pellet;
+}
+
+SDL_Rect Board::superPelletSprite() {
+  return super_pellet;
+}
+
+std::vector<SDL_Point> Board::pelletPositions() {
+  std::vector<SDL_Point> positions;
+  for (uint8_t row = 0; row < ROWS; row++) {
+    for (uint8_t column = 0; column < COLUMNS; column++) {
+      if (board_state[row][column] == 1)
+        positions.push_back({column, row});
+    }
+  }
+  return positions;
+}
+
+std::vector<SDL_Point> Board::superPelletPositions() {
+  // Hard coded is probably better than this
+  std::vector<SDL_Point> positions;
+  for (uint8_t row = 0; row < ROWS; row++) {
+    for (uint8_t column = 0; column < COLUMNS; column++) {
+      if (board_state[row][column] == 4)
+        positions.push_back({column, row});
+    }
+  }
+  return positions;
+}
