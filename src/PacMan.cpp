@@ -45,7 +45,7 @@ void PacMan::updateAnimationPosition(std::chrono::milliseconds time_delta) {
 }
 
 void PacMan::updateMazePosition(std::chrono::milliseconds time_delta, const Board & board) {
-  float_t position_delta = (time_delta.count() / 64.0);
+  float_t position_delta = (time_delta.count() / 128.0);
 
   if (board.isWalkable(pos, position_delta, direction)) {
     switch (direction) {
