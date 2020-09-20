@@ -18,13 +18,14 @@ public:
 private:
 
   enum class Direction {
+    NONE,
     LEFT,
     RIGHT,
     UP,
     DOWN
   };
 
-  Direction direction = Direction::LEFT;
+  Direction direction = Direction::NONE;
   SDL_Point pos = {14, 23};
   const SDL_Rect right_wide   = {0*32, 0, 32, 32};
   const SDL_Rect right_narrow = {1*32, 0, 32, 32};

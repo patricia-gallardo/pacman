@@ -9,6 +9,7 @@ PacMan::PacMan() :
 
 SDL_Rect PacMan::currentSprite() const {
   switch (direction) {
+    case Direction::NONE: return closed;
     case Direction::LEFT: return left_animation[animation_position];
     case Direction::RIGHT: return right_animation[animation_position];
     case Direction::UP: return up_animation[animation_position];
