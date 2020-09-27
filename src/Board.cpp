@@ -58,8 +58,6 @@ void Board::resetBoardState() {
 bool Board::isWalkable(Position point, float_t position_delta, Direction direction) const {
 
   switch (direction) {
-    case Direction::NONE:
-      return true;
     case Direction::LEFT:
       return board_state[int(point.y)][int(point.x - position_delta)] != 0;
     case Direction::RIGHT:
@@ -68,6 +66,8 @@ bool Board::isWalkable(Position point, float_t position_delta, Direction directi
       return board_state[int(point.y - position_delta)][int(point.x)] != 0;
     case Direction::DOWN:
       return board_state[int(point.y) + 1][int(point.x)] != 0;
+    case Direction::NONE:
+    default: return true;
   }
 }
 

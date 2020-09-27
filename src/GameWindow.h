@@ -2,6 +2,7 @@
 #define PACMAN_GAMEWINDOW_H
 
 #include <memory>
+#include <string>
 
 #include "PacMan.h"
 #include <SDL2/SDL.h>
